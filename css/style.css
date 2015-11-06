@@ -1,0 +1,62 @@
+.page {
+  background: transparent  url(../images/bg-comics.jpg) repeat-y center 0 / 100% auto;
+}
+header {
+  background: rgba(255, 255, 255, 0.65) none repeat scroll 0 0
+}
+header h1 {
+  font-family: "Orbitron",sans-serif;
+  font-weight: bold;
+  text-shadow: 2px 2px 5px #00ADEF;
+}
+.logo {padding-top: 20px;}
+.logo img {
+  box-shadow: 5px 5px 20px #000;
+  max-width: 220px;
+}
+.content.zone-featured {
+  background: rgba(0, 0, 0, 0.8) none repeat scroll 0 0;
+  padding-top: 40px;
+}
+
+.wrapper-filter-comics h2 {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.wrapper-filter-comics h3 {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 400;
+}
+
+
+/* main-content */
+.main-content {
+  background: #fff;
+  box-shadow: 0 0 10px #00adef;
+}
+.main-content  a.success.button {
+  background: #00adef none repeat scroll 0 0;
+  color: #000;
+  font-family: 'Orbitron', sans-serif;
+  margin-bottom: 0;
+  margin-top: 20px;
+  padding-bottom: 7px;
+  padding-top: 8px;
+  border-radius: 3px;
+  box-shadow: 1px 1px 2px #000;
+}
+
+.main-content a.button {
+  color: #000;
+  font-family: 'Orbitron', sans-serif;
+}
+.main-content a.button:hover {
+  color: #fff;
+}
+
+.title-category {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  text-align: center;
+}

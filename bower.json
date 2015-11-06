@@ -1,0 +1,22 @@
+{
+  "name": "project201511marvel",
+  "authors": [
+    "Victor Kane <victorkane@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.7",
+    "angular-md5": "~0.1.8"
+  }
+}
