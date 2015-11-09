@@ -9,9 +9,11 @@ angular.module('ComicApp', ['angular-md5'])
             return MarvelService.list();
         };
         vm.ButtonClick = function () {
-            console.log(vm.Message = "Categoria Seleccionada");
+            //vm.Message = "Categoria Seleccionada";
+            //console.log(categories.title);
+            //console.log(vm.Message = "Categoria Seleccionada");
+            console.log(vm.repeatSelect); 
         };
-
         var init = function() {
             MarvelService.getComics();
         };
