@@ -9,15 +9,17 @@ angular.module('ComicApp', ['angular-md5'])
             return MarvelService.list();
         };
         vm.ButtonClick = function () {
-            //vm.Message = "Categoria Seleccionada";
-            //console.log(categories.title);
-            //console.log(vm.Message = "Categoria Seleccionada");
-            console.log(vm.repeatSelect); 
+
+            console.log(vm.repeatSelect);
+            console.log(MarvelService.listComics());
+
         };
         var init = function() {
             MarvelService.getComics();
+            //console.log(MarvelService.listComics());
         };
         init();
+
     }])
     .service('MarvelService', ['$http', 'md5', function($http, md5) {
         var categories = [{
@@ -63,12 +65,15 @@ angular.module('ComicApp', ['angular-md5'])
         this.add = function(category) {
             categories.push(category);
         };
+        this.listComics = function () {
+          return comics;
+        };
 
         var comics = [];
         var publicKey = 'a4703ddc654f493c1b7923a859f68e4a';
         var privateKey = '6fed95bf3af7a38b3405f2c50e65d380b9dd2758';
         var baseUrl = 'http://gateway.marvel.com/v1/';
-        var limit = 100; // default is 20
+        var limit = 20; // default is 20
         var url = baseUrl + 'public/comics?limit=' + limit + '&apikey=' + publicKey;
         var ts = new Date().getTime();
         var hash = md5.createHash(ts + privateKey + publicKey);
@@ -80,7 +85,7 @@ angular.module('ComicApp', ['angular-md5'])
                 .then(
                     function(response) {
                         comics = response.data.data.results;
-                        console.log('got Comics: ', comics)
+                        //console.log('got Comics: ', comics)
                     });
         };
     }]);
