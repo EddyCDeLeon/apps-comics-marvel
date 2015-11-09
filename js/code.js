@@ -8,6 +8,9 @@ angular.module('ComicApp', ['angular-md5'])
         vm.list = function() {
             return MarvelService.list();
         };
+        vm.ButtonClick = function () {
+            vm.Message = "Button clicked."
+        }
         var init = function() {
             MarvelService.getComics();
         };
