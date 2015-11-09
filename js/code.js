@@ -9,8 +9,9 @@ angular.module('ComicApp', ['angular-md5'])
             return MarvelService.list();
         };
         vm.ButtonClick = function () {
-            vm.Message = "Button clicked."
-        }
+            console.log(vm.Message = "Categoria Seleccionada");
+        };
+
         var init = function() {
             MarvelService.getComics();
         };
@@ -60,6 +61,7 @@ angular.module('ComicApp', ['angular-md5'])
         this.add = function(category) {
             categories.push(category);
         };
+
         var comics = [];
         var publicKey = 'a4703ddc654f493c1b7923a859f68e4a';
         var privateKey = '6fed95bf3af7a38b3405f2c50e65d380b9dd2758';

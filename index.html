@@ -54,14 +54,16 @@
                     <div class="row">
                         <div class="large-6 columns">
                             <label>{{comicsListCtrl.mensajeSearch}}</label>
-                            <select>
+                            <select ng-model="comicsListCtrl.repeatSelect">  <!-- function selected -->
                                 <option ng-repeat="category in comicsListCtrl.list()" class="title" ng-bind="category.title"></option>
                             </select>
                         </div>
                         <div class="large-6 columns">
                             <button  class="medium success button" ng-click="comicsListCtrl.ButtonClick()">Buscar</button>
                             <span ng-bind="comicsListCtrl.Message"></span>
+                            <!--<span ng-bind="comicsListCtrl.repeatSelect"></span>-->
                         </div>
+
                     </div>
                     <div class="row">
                         <div class="large-4 medium-4 columns" ng-repeat="category in comicsListCtrl.list()">
@@ -73,7 +75,7 @@
                                 </p>
                                 <p class="nombre-comic" ng-bind="category.nombre"></p>
                                 <p class="autor-comic" ng-bind="category.autor"></p>
-                                <a href="categorias.html" class="small round button" data-reveal-id="myModal">Ver Comic</a>
+                                <a href="#" class="small round button" data-reveal-id="myModal">Ver Comic</a>
                             </div>
                         </div>
                     </div>
