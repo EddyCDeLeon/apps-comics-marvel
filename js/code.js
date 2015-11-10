@@ -16,7 +16,6 @@ angular.module('ComicApp', ['angular-md5'])
         };
         var init = function() {
             MarvelService.getComics();
-            //console.log(MarvelService.listComics());
         };
         init();
 
