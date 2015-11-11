@@ -12,7 +12,7 @@ angular.module('ComicApp', ['angular-md5'])
         vm.ButtonClick = function () {
             //console.log(vm.repeatSelect);
             datosCategoria = MarvelService.listComics(vm.repeatSelect);
-            console.log(datosCategoria);
+            console.log("En ButtonClick", datosCategoria);
 
         };
         /*var init = function() {
@@ -23,7 +23,7 @@ angular.module('ComicApp', ['angular-md5'])
     }])
     .service('MarvelService', ['$http', 'md5', function($http, md5) {
         var categories = [{
-            title: 'Characteres',
+            title: 'Characters',
             img: 'portrait_incredible',
             nombre: 'Nombre de Ejemplo 1',
             id: '1',
@@ -67,55 +67,72 @@ angular.module('ComicApp', ['angular-md5'])
         };
         this.listComics = function (selection) {
           //return comics;
-
+          var laCategoria = "";
+          var laLista = [];
           switch(selection) {
               case "Characteres":
-                  return characteresList;
+                  laCategoria = "characters";
+                  laLista = charactersList;
                   break;
               case "Comics":
+                  laCategoria = "comics";
+                  console.log("En listComics", selection);
+                  if (comicsList.lenght > 0) {
+                    return comicsList;
+                  }
+                  this.getComics(laCategoria);
+                  comicsList = laLista;
                   return comicsList;
                   break;
               case "Creator":
-                  return creatorList;
+                  laCategoria = "creator";
+                  laLista = creatorList;
                   break;
               case "Events":
-                  return eventsList;
+                  laCategoria = "events";
+                  laLista = eventsList;
                   break;
               case "Series":
-                  return seriesList;
+                laCategoria = "series";
+                  laLista = seriesList;
                   break;
               case "Stories":
-                  return storiesList;
+                  laCategoria = "stories";
+                  laLista = storiesList;
                   break;
               default:
                   console.log("En listComics", selection);
-          }
+          }; // end switch
 
-        };
+        }; // end this.listComics
 
-        var characteresList = [];
+
+        var charactersList = [];
         var comicsList  = [];
         var creatorList  = [];
         var eventsList  = [];
         var seriesList  = [];
         var storiesList  = [];
+        var laLista = [];
 
         var publicKey = 'a4703ddc654f493c1b7923a859f68e4a';
         var privateKey = '6fed95bf3af7a38b3405f2c50e65d380b9dd2758';
         var baseUrl = 'http://gateway.marvel.com/v1/';
         var limit = 20; // default is 20
-        var url = baseUrl + 'public/comics?limit=' + limit + '&apikey=' + publicKey;
         var ts = new Date().getTime();
         var hash = md5.createHash(ts + privateKey + publicKey);
-		url += "&ts="+ts+"&hash="+hash;
 
-        this.getComics = function() {
+        this.getComics = function(laCategoria) {
+            laLista = [];
+            var url = baseUrl + 'public/' + laCategoria + '?limit=' + limit + '&apikey=' + publicKey;
+            url += "&ts="+ts+"&hash="+hash;
             console.log('url: ', url)
             return $http.get(url)
                 .then(
                     function(response) {
-                        comics = response.data.data.results;
-                        //console.log('got Comics: ', comics)
+                        laLista = response.data.data.results;
+                        console.log('got Comics: ', laLista);
                     });
         };
+
     }]);
