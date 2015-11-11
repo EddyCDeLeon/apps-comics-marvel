@@ -66,14 +66,26 @@ angular.module('ComicApp', ['angular-md5'])
             categories.push(category);
         };
         this.listComics = function (selection) {
-          return comics;
+          //return comics;
 
           switch(selection) {
-              case n:
-                  code block
+              case characteres:
+                  return characteresList;
                   break;
-              case n:
-                  code block
+              case comics:
+                  return comicsList;
+                  break;
+              case creator:
+                  return creatorList;
+                  break;
+              case events:
+                  return eventsList;
+                  break;
+              case series:
+                  return seriesList;
+                  break;
+              case stories:
+                  return storiesList;
                   break;
               default:
                   console.log("En listComics", selection);
