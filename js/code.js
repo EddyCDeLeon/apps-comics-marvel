@@ -69,22 +69,22 @@ angular.module('ComicApp', ['angular-md5'])
           //return comics;
 
           switch(selection) {
-              case characteres:
+              case "Characteres":
                   return characteresList;
                   break;
-              case comics:
+              case "Comics":
                   return comicsList;
                   break;
-              case creator:
+              case "Creator":
                   return creatorList;
                   break;
-              case events:
+              case "Events":
                   return eventsList;
                   break;
-              case series:
+              case "Series":
                   return seriesList;
                   break;
-              case stories:
+              case "Stories":
                   return storiesList;
                   break;
               default:
