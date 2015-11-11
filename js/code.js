@@ -89,9 +89,9 @@ angular.module('ComicApp', ['angular-md5'])
                   if (comicsList.length > 0) {
                     return comicsList;
                   }
-                  this.getComics(laCategoria);
-                  comicsList = laLista;
-                  console.log("En listComics laLista ", laLista);
+                  getComics(laCategoria);
+                  comicsList = getLaLista();
+                  //console.log("En listComics laLista ", laLista);
                   console.log("En listComics comicsList 2", comicsList);
                   return comicsList;
                   break;
@@ -125,17 +125,26 @@ angular.module('ComicApp', ['angular-md5'])
         var ts = new Date().getTime();
         var hash = md5.createHash(ts + privateKey + publicKey);
 
-        this.getComics = function(laCategoria) {
-            laLista = [];
+        var getComics = function(laCategoria) {
+            //laLista = [];
             var url = baseUrl + 'public/' + laCategoria + '?limit=' + limit + '&apikey=' + publicKey;
             url += "&ts="+ts+"&hash="+hash;
             console.log('url: ', url)
             $http.get(url)
                 .then(
                     function(response) {
-                        laLista = response.data.data.results;
-                        console.log('got Comics: ', laLista);
+                        setLaLista(response.data.data.results);
+                        //console.log('got Comics: ', laLista);
                     });
+        };
+        var setLaLista = function(datos) {
+          console.log('got Comics datos: ', datos);
+          laLista = datos;
+          //console.log('get Comics laLista: ', getLaLista());
+        };
+        var getLaLista = function() {
+          console.log('get Comics laLista: ', laLista);
+          return laLista;
         };
 
     }]);
