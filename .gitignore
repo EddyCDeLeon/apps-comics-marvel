@@ -2,3 +2,4 @@
 *.log
 bower_components
 js/vendor
+.*.swp
