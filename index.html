@@ -54,13 +54,13 @@
                     <div class="row">
                         <div class="large-6 columns">
                             <label>{{comicsListCtrl.mensajeSearch}}</label>
-                            <select ng-model="comicsListCtrl.repeatSelect">  <!-- function selected -->
+                            <select ng-model="comicsListCtrl.categoriaSelect">  <!-- function selected -->
                                 <option ng-repeat="category in comicsListCtrl.list()" value="{{category.title}}" class="title" ng-bind="category.title"></option>
                             </select>
                         </div>
                         <div class="large-6 columns">
                             <button  class="medium success button" ng-click="comicsListCtrl.ButtonClick()">Buscar</button>
-                            <span ng-bind="comicsListCtrl.repeatSelect"></span>
+                            <span ng-bind="comicsListCtrl.categoriaSelect"></span>
                         </div>
 
                     </div>

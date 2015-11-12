@@ -5,23 +5,23 @@ angular.module('ComicApp', ['angular-md5'])
         vm.mensajewelcome = "Bienvenidos";
         vm.mensajeComic = "Los mejores comics de Super Heroes de Marvel";
         vm.mensajeSearch = "Buscar Comics por:";
-        vm.datosCategoria = [];
+        vm.categoriaSelect = '';
         vm.list = function() {
-            return MarvelService.list();
+            return MarvelService.listCategorias();
         };
-        vm.ButtonClick = function () {
-            //console.log(vm.repeatSelect);
-            datosCategoria = MarvelService.listComics(vm.repeatSelect);
-            console.log("En ButtonClick", datosCategoria);
+        vm.ButtonClick = function() {
+            console.log("En ButtonClick, categoria seleccionada: ", vm.categoriaSelect);
 
         };
-        /*var init = function() {
-            MarvelService.getComics();
-        };
-        init();*/
-
     }])
-    .service('MarvelService', ['$http', 'md5', function($http, md5) {
+    .service('MarvelService', ['$http', '$q', 'md5', function($http, $q, md5) {
+        var marvelModel = this;
+        var publicKey = 'a4703ddc654f493c1b7923a859f68e4a';
+        var privateKey = '6fed95bf3af7a38b3405f2c50e65d380b9dd2758';
+        var baseUrl = 'http://gateway.marvel.com/v1/';
+        var limit = 20; // default is 20
+        var ts = new Date().getTime();
+        var hash = md5.createHash(ts + privateKey + publicKey);
         var categories = [{
             title: 'Characters',
             img: 'portrait_incredible',
@@ -59,92 +59,21 @@ angular.module('ComicApp', ['angular-md5'])
             id: '6',
             autor: 'Joel Pizarro'
         }];
-        var charactersList = [];
-        var comicsList  = [];
-        var creatorList  = [];
-        var eventsList  = [];
-        var seriesList  = [];
-        var storiesList  = [];
-        var laLista = [];
-
-
-        this.list = function() {
+        var getComics = function(laCategoria) {
+            var url = baseUrl + 'public/' + laCategoria + '?limit=' + limit + '&apikey=' + publicKey;
+            url += "&ts=" + ts + "&hash=" + hash;
+            console.log('url: ', url)
+                /*
+                $http.get(url)
+                    .then(
+                        function(response) {
+                            setLaLista(response.data.data.results);
+                            //console.log('got Comics: ', laLista);
+                        });
+                */
+        };
+        this.listCategorias = function() {
             return categories;
         };
-        this.add = function(category) {
-            categories.push(category);
-        };
-        this.listComics = function (selection) {
-          //return comics;
-          var laCategoria = "";
-          switch(selection) {
-              case "Characteres":
-                  laCategoria = "characters";
-                  laLista = charactersList;
-                  break;
-              case "Comics":
-                  laCategoria = "comics";
-                  console.log("En listComics selection", selection);
-                  console.log("En listComics comicsList 1", comicsList);
-                  if (comicsList.length > 0) {
-                    return comicsList;
-                  }
-                  getComics(laCategoria);
-                  comicsList = getLaLista();
-                  //console.log("En listComics laLista ", laLista);
-                  console.log("En listComics comicsList 2", comicsList);
-                  return comicsList;
-                  break;
-              case "Creator":
-                  laCategoria = "creator";
-                  laLista = creatorList;
-                  break;
-              case "Events":
-                  laCategoria = "events";
-                  laLista = eventsList;
-                  break;
-              case "Series":
-                laCategoria = "series";
-                  laLista = seriesList;
-                  break;
-              case "Stories":
-                  laCategoria = "stories";
-                  laLista = storiesList;
-                  break;
-              default:
-                  console.log("En listComics", selection);
-          }; // end switch
-
-        }; // end this.listComics
-
-
-        var publicKey = 'a4703ddc654f493c1b7923a859f68e4a';
-        var privateKey = '6fed95bf3af7a38b3405f2c50e65d380b9dd2758';
-        var baseUrl = 'http://gateway.marvel.com/v1/';
-        var limit = 20; // default is 20
-        var ts = new Date().getTime();
-        var hash = md5.createHash(ts + privateKey + publicKey);
-
-        var getComics = function(laCategoria) {
-            //laLista = [];
-            var url = baseUrl + 'public/' + laCategoria + '?limit=' + limit + '&apikey=' + publicKey;
-            url += "&ts="+ts+"&hash="+hash;
-            console.log('url: ', url)
-            $http.get(url)
-                .then(
-                    function(response) {
-                        setLaLista(response.data.data.results);
-                        //console.log('got Comics: ', laLista);
-                    });
-        };
-        var setLaLista = function(datos) {
-          console.log('got Comics datos: ', datos);
-          laLista = datos;
-          //console.log('get Comics laLista: ', getLaLista());
-        };
-        var getLaLista = function() {
-          console.log('get Comics laLista: ', laLista);
-          return laLista;
-        };
-
+        this.listComics = function(selection) {}; // end this.listComics
     }]);
