@@ -1,13 +1,10 @@
 {
-  "name": "project201511marvel",
-  "authors": [
-    "Victor Kane <victorkane@gmail.com>"
-  ],
+  "name": "apps-comics-marvel",
+  "homepage": "https://github.com/EddyCDeLeon/apps-comics-marvel",
   "description": "",
   "main": "",
   "moduleType": [],
   "license": "MIT",
-  "homepage": "",
   "ignore": [
     "**/.*",
     "node_modules",
@@ -16,7 +13,10 @@
     "tests"
   ],
   "dependencies": {
+    "jquery": "~2.1.4",
+    "foundation": "~5.5.3",
     "angular": "~1.4.7",
-    "angular-md5": "~0.1.8"
+    "angular-md5": "~0.1.8",
+    "lodash": "~3.10.1"
   }
 }

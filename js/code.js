@@ -11,7 +11,7 @@ angular.module('ComicApp', ['angular-md5'])
         };
         vm.ButtonClick = function() {
             console.log("En ButtonClick, categoria seleccionada: ", vm.categoriaSelect);
-
+            MarvelService.listComics(vm.categoriaSelect);
         };
     }])
     .service('MarvelService', ['$http', '$q', 'md5', function($http, $q, md5) {
@@ -22,6 +22,7 @@ angular.module('ComicApp', ['angular-md5'])
         var limit = 20; // default is 20
         var ts = new Date().getTime();
         var hash = md5.createHash(ts + privateKey + publicKey);
+        var laLista = [];
         var categories = [{
             title: 'Characters',
             img: 'portrait_incredible',
@@ -59,21 +60,45 @@ angular.module('ComicApp', ['angular-md5'])
             id: '6',
             autor: 'Joel Pizarro'
         }];
-        var getComics = function(laCategoria) {
-            var url = baseUrl + 'public/' + laCategoria + '?limit=' + limit + '&apikey=' + publicKey;
-            url += "&ts=" + ts + "&hash=" + hash;
-            console.log('url: ', url)
-                /*
-                $http.get(url)
-                    .then(
-                        function(response) {
-                            setLaLista(response.data.data.results);
-                            //console.log('got Comics: ', laLista);
-                        });
+        /*
+                var getComics = function(laCategoria) {
+                    var url = baseUrl + 'public/' + laCategoria + '?limit=' + limit + '&apikey=' + publicKey;
+                    url += "&ts=" + ts + "&hash=" + hash;
+                    console.log('url: ', url);
+                    $http.get(url)
+                        .then(
+                            function(response) {
+                                setLaLista(response.data.data.results);
+                                //console.log('got Comics: ', laLista);
+                            });
+                };
                 */
-        };
         this.listCategorias = function() {
             return categories;
         };
-        this.listComics = function(selection) {}; // end this.listComics
+        this.listComics = function(selection) {
+            console.log('En listComics, selection: ', selection);
+            /*
+            var resultado = _.result(_.find(categories, function(category) {
+                return category.title == selection;
+            }), 'title');
+            */
+            var laCategoriaSeleccionada = _.find(categories, function(category) {
+                return category.title == selection;
+            });
+            console.log('La categoria actual, objeto completo, en listComics: ', laCategoriaSeleccionada);
+            console.log('La categoria para el query a Marvel: ', laCategoriaSeleccionada.title.toLowerCase());
+            var laCategoria = laCategoriaSeleccionada.title.toLowerCase();
+            var url = baseUrl + 'public/' + laCategoria + '?limit=' + limit + '&apikey=' + publicKey;
+            url += "&ts=" + ts + "&hash=" + hash;
+            console.log('url: ', url)
+            $http.get(url)
+                .then(
+                    function(response) {
+                        laLista = response.data.data.results;
+                        console.log('got Comics: ', laLista);
+                    });
+
+
+        }; // end this.listComics
     }]);
