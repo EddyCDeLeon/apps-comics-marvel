@@ -6,7 +6,6 @@ angular.module('ComicApp', ['angular-md5'])
         vm.mensajeComic = "Los mejores comics de Super Heroes de Marvel";
         vm.mensajeSearch = "Buscar Comics por:";
         vm.categoriaSelect = '';
-        vm.categoriaSelectCategoriaLista = [];    
         vm.list = function() {
             return MarvelService.listCategorias();
         };
@@ -41,7 +40,7 @@ angular.module('ComicApp', ['angular-md5'])
             id: '2',
             autor: 'Eddy Leon'
         }, {
-            title: 'Creator',
+            title: 'Creators',
             img: 'portrait_incredible3',
             nombre: 'Nombre de Ejemplo 3',
             id: '3',
