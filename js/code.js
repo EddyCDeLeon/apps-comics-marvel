@@ -6,12 +6,16 @@ angular.module('ComicApp', ['angular-md5'])
         vm.mensajeComic = "Los mejores comics de Super Heroes de Marvel";
         vm.mensajeSearch = "Buscar Comics por:";
         vm.categoriaSelect = '';
+        vm.categoriaSelectCategoriaLista = [];    
         vm.list = function() {
             return MarvelService.listCategorias();
         };
         vm.ButtonClick = function() {
             console.log("En ButtonClick, categoria seleccionada: ", vm.categoriaSelect);
-            MarvelService.listComics(vm.categoriaSelect);
+            MarvelService.listComics(vm.categoriaSelect)
+            .then(function (result) {
+                console.log("ButtonClick resultado: ", result);
+            });
         };
     }])
     .service('MarvelService', ['$http', '$q', 'md5', function($http, $q, md5) {
@@ -22,6 +26,7 @@ angular.module('ComicApp', ['angular-md5'])
         var limit = 20; // default is 20
         var ts = new Date().getTime();
         var hash = md5.createHash(ts + privateKey + publicKey);
+        var laSeleccion = '';
         var laLista = [];
         var categories = [{
             title: 'Characters',
@@ -60,16 +65,24 @@ angular.module('ComicApp', ['angular-md5'])
             id: '6',
             autor: 'Joel Pizarro'
         }];
+        function extraer(resultado) {
+            return resultado.data.data.results;
+                        //laLista = response.data.data.results;
+        }
+        function cacheCategorias(resultado) {
+            laLista = extraer(resultado);
+            //console.log("cacheCategorias: ", laLista)
+            return laLista;
+        }
         this.listCategorias = function() {
             return categories;
         };
         this.listComics = function(selection) {
+            return (selection == laSeleccion) ? $q.when(laLista):getComics(selection);
+        };
+        function getComics (selection) {
+            laSeleccion = selection;
             console.log('En listComics, selection: ', selection);
-            /*
-            var resultado = _.result(_.find(categories, function(category) {
-                return category.title == selection;
-            }), 'title');
-            */
             var laCategoriaSeleccionada = _.find(categories, function(category) {
                 return category.title == selection;
             });
@@ -78,14 +91,8 @@ angular.module('ComicApp', ['angular-md5'])
             var laCategoria = laCategoriaSeleccionada.title.toLowerCase();
             var url = baseUrl + 'public/' + laCategoria + '?limit=' + limit + '&apikey=' + publicKey;
             url += "&ts=" + ts + "&hash=" + hash;
-            console.log('url: ', url)
-            $http.get(url)
-                .then(
-                    function(response) {
-                        laLista = response.data.data.results;
-                        console.log('got Comics: ', laLista);
-                    });
-
-
+            console.log('url: ', url);
+            return $http.get(url)
+                .then(cacheCategorias);
         }; // end this.listComics
     }]);
