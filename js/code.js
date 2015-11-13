@@ -60,19 +60,6 @@ angular.module('ComicApp', ['angular-md5'])
             id: '6',
             autor: 'Joel Pizarro'
         }];
-        /*
-                var getComics = function(laCategoria) {
-                    var url = baseUrl + 'public/' + laCategoria + '?limit=' + limit + '&apikey=' + publicKey;
-                    url += "&ts=" + ts + "&hash=" + hash;
-                    console.log('url: ', url);
-                    $http.get(url)
-                        .then(
-                            function(response) {
-                                setLaLista(response.data.data.results);
-                                //console.log('got Comics: ', laLista);
-                            });
-                };
-                */
         this.listCategorias = function() {
             return categories;
         };
