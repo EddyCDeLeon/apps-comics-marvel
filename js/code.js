@@ -1,11 +1,17 @@
 angular.module('ComicApp', ['angular-md5'])
     .controller('ComicsListCtrl', ['MarvelService', function(MarvelService) {
         var vm = this;
+        var datosCategoria = [];
         vm.mensajeHeader = "App Comics Marvel";
         vm.mensajewelcome = "Bienvenidos";
         vm.mensajeComic = "Los mejores comics de Super Heroes de Marvel";
         vm.mensajeSearch = "Buscar Comics por:";
         vm.categoriaSelect = '';
+        vm.listarDatos = function() {
+          console.log("listarDatos", datosCategoria);
+          //return datosCategoria;
+          return MarvelService.listCategorias();
+        };
         vm.list = function() {
             return MarvelService.listCategorias();
         };
@@ -14,6 +20,7 @@ angular.module('ComicApp', ['angular-md5'])
             MarvelService.listComics(vm.categoriaSelect)
             .then(function (result) {
                 console.log("ButtonClick resultado: ", result);
+                datosCategoria = result;
             });
         };
     }])
